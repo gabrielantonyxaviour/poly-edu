@@ -61,7 +61,12 @@ contract PolyEdu is ERC1155, ERC1155URIStorage, Ownable, RouterCrossTalk {
         string certificate_meta,
         uint timestamp
     );
-    event CertificateIssued(uint indexed projectId, address student, uint timestamp);
+    event CertificateIssued(
+        uint indexed projectId,
+        address student,
+        uint timestamp,
+        string certificate_meta
+    );
 
     // Constructor - runs at deploy
     constructor(
@@ -95,6 +100,7 @@ contract PolyEdu is ERC1155, ERC1155URIStorage, Ownable, RouterCrossTalk {
             ),
             "PolyEdu - Not your project!"
         );
+        require(courses[projectId].projectId == 0, "PolyEdu - Course Already Created");
         courses[projectId].projectId = projectId;
         courses[projectId].creators = _valist_registry.getProjectMembers(projectId);
         courses[projectId].createdTimeStamp = block.timestamp;
@@ -144,7 +150,12 @@ contract PolyEdu is ERC1155, ERC1155URIStorage, Ownable, RouterCrossTalk {
             revert PolyEdu_CertificateAlreadyClaimed(projectId, msg.sender);
         }
         _mint(msg.sender, projectId, 1, "0x");
-        emit CertificateIssued(projectId, msg.sender, block.timestamp);
+        emit CertificateIssued(
+            projectId,
+            msg.sender,
+            block.timestamp,
+            courses[projectId].certificate_meta
+        );
     }
 
     // Router functions
@@ -253,12 +264,6 @@ contract PolyEdu is ERC1155, ERC1155URIStorage, Ownable, RouterCrossTalk {
         uint256 amount,
         bytes memory data
     ) public override {}
-
-    // function supportsInterface(
-    //     bytes4 interfaceId
-    // ) public view override(ERC1155, ERC165, IERC165) returns (bool) {
-    //     super.supportsInterface(interfaceId);
-    // }
 
     function _routerSyncHandler(
         bytes4 _selector,
