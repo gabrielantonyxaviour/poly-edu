@@ -6,21 +6,23 @@ import OwnedCourses from "./pages/OwnedCourses";
 import Dashboard from "./pages/Dashboard";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import NavBar from "./components/Navbar";
-
+import { Fragment } from "react";
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<NavBar />}>
-          <Route index element={<Dashboard />} />
-          <Route path="certificates" element={<EarnedCertificates />} />
-          <Route path="course/:id" element={<Course />} />
-          <Route path="create" element={<CreateCourse />} />
-          <Route path="mycourses" element={<OwnedCourses />} />
+    <Fragment>
+      <NavBar />
+
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Dashboard />} />
+          <Route path="/certificates" element={<EarnedCertificates />} />
+          <Route path="/course/:id" element={<Course />} />
+          <Route path="/create" element={<CreateCourse />} />
+          <Route path="/mycourses" element={<OwnedCourses />} />
           <Route path="*" element={<Error404 />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+        </Routes>
+      </BrowserRouter>
+    </Fragment>
   );
 }
 
