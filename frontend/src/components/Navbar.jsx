@@ -18,6 +18,7 @@ function NavBar() {
         >
           <Nav className="justify-content-end d-flex">
             <Nav.Link href="/">Home</Nav.Link>
+            <Nav.Link href="/create">Create</Nav.Link>
             <Nav.Link href="/mycourses">My Courses</Nav.Link>
             <Nav.Link href="/certificates">My Certificates</Nav.Link>
             <NavDropdown title="More" id="basic-nav-dropdown">

@@ -15,9 +15,9 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Dashboard />} />
+          <Route path="/create" element={<CreateCourse />} />
           <Route path="/certificates" element={<EarnedCertificates />} />
           <Route path="/course/:id" element={<Course />} />
-          <Route path="/create" element={<CreateCourse />} />
           <Route path="/mycourses" element={<OwnedCourses />} />
           <Route path="*" element={<Error404 />} />
         </Routes>
