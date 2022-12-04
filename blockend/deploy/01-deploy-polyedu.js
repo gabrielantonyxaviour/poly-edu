@@ -3,7 +3,7 @@ const { verify } = require("../utils/verify")
 
 const REGISTRY = "0xD504d012D78B81fA27288628f3fC89B0e2f56e24"
 const LICENSE = "0x3cE643dc61bb40bB0557316539f4A93016051b81"
-const GENERIC_HANDLER = "0x50EED4491Eb4634E0ef53751cF280417829Db45E"
+const GENERIC_HANDLER = "0x22a240968D41e4FaC43b5d5DC8A39C3e96EC5da7"
 
 module.exports = async ({ getNamedAccounts, deployments }) => {
     const { deploy, log } = deployments

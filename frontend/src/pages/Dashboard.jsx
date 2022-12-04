@@ -1,11 +1,34 @@
 import React, { Fragment, useState } from "react";
 import { Button, Hero, Typography, Input, Avatar, Tag, Table } from "web3uikit";
+import { ApolloClient, InMemoryCache, gql } from "@apollo/client";
 function Dashboard() {
   const [search, setSearch] = useState("");
   const [courses, setCourses] = useState([]);
 
   const SEARCH_QUERY = ``;
 
+  const FETCH_QUERY = `
+  query {
+    courses {
+      id
+      creator
+      course_meta
+      certificate_meta
+    }
+  }
+  `;
+  const client = new ApolloClient({
+    uri: "https://api.thegraph.com/subgraphs/name/gabrielantonyxaviour/polyedu-mumbai-test",
+    cache: new InMemoryCache(),
+  });
+  client
+    .query({
+      query: gql(FETCH_QUERY),
+    })
+    .then((data) => console.log("Subgraph data: ", data))
+    .catch((err) => {
+      console.log("Error fetching data: ", err);
+    });
   function goToCourse(projectId) {
     console.log(projectId);
     // go to coursePage of the projectId
@@ -80,8 +103,6 @@ function Dashboard() {
     "Course Description",
     "Price",
   ];
-
-  const FETCH_QUERY = ``;
 
   async function fetchCourses() {}
   return (

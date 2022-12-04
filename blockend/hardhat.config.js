@@ -10,6 +10,7 @@ const MUMBAI_RPC_URL = process.env.MUMBAI_RPC_URL
 const PRIVATE_KEY = process.env.PRIVATE_KEY
 const POLYGONSCAN_API_KEY = process.env.POLYGONSCAN_API_KEY
 const REPORT_GAS = process.env.REPORT_GAS
+const BSCAN_API_KEY = process.env.BSCAN_API_KEY
 module.exports = {
     defaultNetwork: "hardhat",
     networks: {
@@ -22,10 +23,24 @@ module.exports = {
             saveDeployments: true,
             chainId: 80001,
         },
+        polygon: {
+            url: "https://polygon-mainnet.public.blastapi.io",
+            accounts: [PRIVATE_KEY],
+            saveDeployments: true,
+            chainId: 137,
+        },
+        binance: {
+            url: "https://bsc-dataseed1.defibit.io",
+            accounts: [PRIVATE_KEY],
+            saveDeployments: true,
+            chainId: 56,
+        },
     },
     etherscan: {
         apiKey: {
             polygonMumbai: POLYGONSCAN_API_KEY,
+            polygon: POLYGONSCAN_API_KEY,
+            binance: BSCAN_API_KEY,
         },
     },
     gasReporter: {

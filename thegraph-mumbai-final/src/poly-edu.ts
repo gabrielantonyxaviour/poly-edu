@@ -1,21 +1,10 @@
-import { BigInt, Address } from "@graphprotocol/graph-ts";
+import { Address, BigInt } from "@graphprotocol/graph-ts";
 import {
-  PolyEdu,
-  ApprovalForAll,
   CertificateIssued,
   CreateCourse,
-  CrossTalkReceive,
-  CrossTalkSend,
-  Linkevent,
-  OwnershipTransferred,
-  TransferBatch,
-  TransferSingle,
-  URI,
-  Unlinkevent,
+  PolyEdu,
 } from "../generated/PolyEdu/PolyEdu";
 import { Course, Certificate } from "../generated/schema";
-
-export function handleApprovalForAll(event: ApprovalForAll): void {}
 
 export function handleCertificateIssued(event: CertificateIssued): void {
   let certificate = Certificate.load(
@@ -29,6 +18,7 @@ export function handleCertificateIssued(event: CertificateIssued): void {
   certificate.projectId = event.params.projectId;
   certificate.student = event.params.student;
   certificate.issueTimestamp = event.params.timestamp;
+  certificate.certificateHash = event.params.certificate_meta;
   certificate.save();
   let course = Course.load(event.params.projectId.toHexString());
   if (!course) {
@@ -51,22 +41,6 @@ export function handleCreateCourse(event: CreateCourse): void {
   course.save();
 }
 
-function getIdFromEventParams(projectId: BigInt, student: Address) {
+function getIdFromEventParams(projectId: BigInt, student: Address): string {
   return student.toHexString() + projectId.toHexString();
 }
-
-export function handleCrossTalkReceive(event: CrossTalkReceive): void {}
-
-export function handleCrossTalkSend(event: CrossTalkSend): void {}
-
-export function handleLinkevent(event: Linkevent): void {}
-
-export function handleOwnershipTransferred(event: OwnershipTransferred): void {}
-
-export function handleTransferBatch(event: TransferBatch): void {}
-
-export function handleTransferSingle(event: TransferSingle): void {}
-
-export function handleURI(event: URI): void {}
-
-export function handleUnlinkevent(event: Unlinkevent): void {}

@@ -31,8 +31,7 @@ contract PolyEdu is ERC1155, ERC1155URIStorage, Ownable, RouterCrossTalk {
     }
 
     // Constants
-    uint8 public constant GOERLI_CHAIN_ID = 7;
-    uint8 public constant AVALANCHE_CHAIN_ID = 3;
+    uint8 public constant POLYGON_CHAIN_ID = 1;
 
     // state variables
     mapping(uint256 => Course) public courses;
@@ -205,25 +204,18 @@ contract PolyEdu is ERC1155, ERC1155URIStorage, Ownable, RouterCrossTalk {
         address _recipient,
         uint256 _id,
         bytes memory _data
-    ) internal returns (bool, bytes32, bool, bytes32) {
+    ) internal returns (bool, bytes32) {
         bytes4 _selector = bytes4(keccak256("receiveCrossChain(address,uint256,uint256,bytes)"));
         bytes memory data = abi.encode(_recipient, _id, 1, _data);
-        (bool successAva, bytes32 hashAva) = routerSend(
-            AVALANCHE_CHAIN_ID,
+        (bool success, bytes32 hash) = routerSend(
+            POLYGON_CHAIN_ID,
             _selector,
             data,
             _crossChainGasLimit,
             28000000000
         );
-        (bool successGoerli, bytes32 hashGoerli) = routerSend(
-            GOERLI_CHAIN_ID,
-            _selector,
-            data,
-            _crossChainGasLimit,
-            1216000000
-        );
 
-        return (successAva, hashAva, successGoerli, hashGoerli);
+        return (success, hash);
     }
 
     function receiveCrossChain(

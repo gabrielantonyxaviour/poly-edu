@@ -1,14 +1,14 @@
 specVersion: 0.0.5
 schema:
-  file: ./schema.graphql
+  file: schema.graphql
 dataSources:
   - kind: ethereum
     name: PolyEdu
     network: mumbai
     source:
-      address: "0x4c5E124F115ed0A9C2337E84A4A6af7F0E370708"
+      address: "0x87963bFEf5cbb3d76DbaF4eBc074d6818A317FdC"
       abi: PolyEdu
-      startblock:
+      startBlock: 29474990
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
@@ -27,17 +27,18 @@ dataSources:
         - Unlinkevent
       abis:
         - name: PolyEdu
-          file: ./abis/PolyEdu.json
+          file: PolyEdu\abis\PolyEdu.json
       eventHandlers:
         - event: ApprovalForAll(indexed address,indexed address,bool)
           handler: handleApprovalForAll
-        - event: CertificateIssued(indexed uint256,address,uint256)
+        - event: CertificateIssued(indexed uint256,address,uint256,string)
           handler: handleCertificateIssued
         - event: CreateCourse(indexed uint256,uint256[10],address,string,string,uint256)
           handler: handleCreateCourse
         - event: CrossTalkReceive(indexed uint8,indexed uint8,address)
           handler: handleCrossTalkReceive
-        - event: CrossTalkSend(indexed uint8,indexed uint8,address,address,indexed bytes4,bytes,bytes32)
+        - event: CrossTalkSend(indexed uint8,indexed uint8,address,address,indexed
+            bytes4,bytes,bytes32)
           handler: handleCrossTalkSend
         - event: Linkevent(indexed uint8,indexed address)
           handler: handleLinkevent
@@ -51,4 +52,4 @@ dataSources:
           handler: handleURI
         - event: Unlinkevent(indexed uint8,indexed address)
           handler: handleUnlinkevent
-      file: ./src/poly-edu.ts
+      file: PolyEdu\PolyEdu.wasm

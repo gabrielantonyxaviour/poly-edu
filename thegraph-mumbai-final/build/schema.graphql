@@ -1,0 +1,16 @@
+type Certificate @entity {
+  id: ID!
+  projectId: BigInt!
+  student: Bytes!
+  certificateHash: String!
+  issueTimestamp: BigInt!
+}
+
+type Course @entity {
+  id: ID! # projectId
+  creator: Bytes!
+  course_meta: String!
+  certificate_meta: String!
+  created_at: BigInt!
+  isCompleted: Boolean
+}
